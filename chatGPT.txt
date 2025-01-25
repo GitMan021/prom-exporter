@@ -1,0 +1,18 @@
+I use weewx to collect temperature and humidity.
+I made the software regularly export collected loop packets to a csv file at /mnt/ramdisk/weewx.csv
+This is a sample of the csv file content:
+root@weewx:~# cat /mnt/ramdisk/weewx.csv
+# dateTime,ET,altimeter,appTemp,barometer,batteryStatus0,batteryStatus1,batteryStatus2,batteryStatus3,batteryStatus4,batteryStatus5,batteryStatus6,batteryStatus7,batteryStatus8,cloudbase,dewpoint,dewpoint0,dewpoint1,dewpoint2,dewpoint3,dewpoint4,dewpoint5,dewpoint6,dewpoint7,dewpoint8,heatindex,heatindex0,heatindex1,heatindex2,heatindex3,heatindex4,heatindex5,heatindex6,heatindex7,heatindex8,humidex,humidity0,humidity1,humidity2,humidity3,humidity4,humidity5,humidity6,humidity7,humidity8,inDewpoint,maxSolarRad,pressure,rainRate,rxCheckPercent,temp0,temp1,temp2,temp3,temp4,temp5,temp6,temp7,temp8,usUnits,windchill,windrun
+1737548653,None,None,None,None,0,0,0,0,0,0,0,0,0,None,None,46.63304459554782,26.631439211762086,49.74722939863394,49.46974902168446,49.86514174465502,45.800313950956024,182.25910957294866,182.25910957294866,182.25910957294866,None,69.642,32.72,76.58200000000002,69.679,74.34700000000001,70.88699999999999,1513.3070572368279,1513.3070572368279,1513.3070572368279,None,42,78,38,47,41,39,None,None,None,None,245.71015785458957,None,0.0,100,70.88,32.72,77.36000000000001,70.7,75.2,72.13999999999999,None,None,None,1,None,None
+
+
+I need to write python app with to screen that file every two seconds and create data in prometheus format available for scrapping.
+From the mentioned file:
+
+1/ I'd need to exclude the header line of course
+2/ for the values I need the values corresponding only for temp0, temp1, temp2, temp3, temp4, temp5, humidity0, humidity1, humidity2, humidity3, humidity4, humidity5.
+3/ the temp[0,1,2,3,4,5] are in farenheit, I need separate function in python to recalculate in celsius
+4/ I need a separate function in python about checking the first column which is the date in unix epoch and if this timestamp is more than 1 min different than the host OS, then the temperature and humidity values are too old and the program should not upload them for prometheus scrapping, instead "none" or some other prometheus meaningful value should be provided 
+
+Please help me write the python code ?
+Open it in canvas so we can discuss it

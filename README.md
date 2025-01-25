@@ -17,3 +17,4 @@ temp1 and hum1 come from another sensor and so on
 
 ### Sample CSV used for input to this script (weewx.csv)
 ### Sample export produced by this script (export.prom)
+### Initial ChatGPT prompt which made fairly good version of the needed python code! (chatGPT.txt)
