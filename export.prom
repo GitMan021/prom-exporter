@@ -1,0 +1,75 @@
+# HELP python_gc_objects_collected_total Objects collected during gc
+# TYPE python_gc_objects_collected_total counter
+python_gc_objects_collected_total{generation="0"} 228.0
+python_gc_objects_collected_total{generation="1"} 328.0
+python_gc_objects_collected_total{generation="2"} 0.0
+# HELP python_gc_objects_uncollectable_total Uncollectable object found during GC
+# TYPE python_gc_objects_uncollectable_total counter
+python_gc_objects_uncollectable_total{generation="0"} 0.0
+python_gc_objects_uncollectable_total{generation="1"} 0.0
+python_gc_objects_uncollectable_total{generation="2"} 0.0
+# HELP python_gc_collections_total Number of times this generation was collected
+# TYPE python_gc_collections_total counter
+python_gc_collections_total{generation="0"} 44.0
+python_gc_collections_total{generation="1"} 3.0
+python_gc_collections_total{generation="2"} 0.0
+# HELP python_info Python platform information
+# TYPE python_info gauge
+python_info{implementation="CPython",major="3",minor="11",patchlevel="2",version="3.11.2"} 1.0
+# HELP process_virtual_memory_bytes Virtual memory size in bytes.
+# TYPE process_virtual_memory_bytes gauge
+process_virtual_memory_bytes 2.5952256e+08
+# HELP process_resident_memory_bytes Resident memory size in bytes.
+# TYPE process_resident_memory_bytes gauge
+process_resident_memory_bytes 2.1241856e+07
+# HELP process_start_time_seconds Start time of the process since unix epoch in seconds.
+# TYPE process_start_time_seconds gauge
+process_start_time_seconds 1.73758728786e+09
+# HELP process_cpu_seconds_total Total user and system CPU time spent in seconds.
+# TYPE process_cpu_seconds_total counter
+process_cpu_seconds_total 14.09
+# HELP process_open_fds Number of open file descriptors.
+# TYPE process_open_fds gauge
+process_open_fds 8.0
+# HELP process_max_fds Maximum number of open file descriptors.
+# TYPE process_max_fds gauge
+process_max_fds 1024.0
+# HELP temperature_celsius_hallway Temperature sensor in Celsius (hallway)
+# TYPE temperature_celsius_hallway gauge
+temperature_celsius_hallway{sensor_name="hallway"} 21.9
+# HELP temperature_celsius_outside Temperature sensor in Celsius (outside)
+# TYPE temperature_celsius_outside gauge
+temperature_celsius_outside{sensor_name="outside"} 10.1
+# HELP temperature_celsius_server Temperature sensor in Celsius (server)
+# TYPE temperature_celsius_server gauge
+temperature_celsius_server{sensor_name="server"} 25.8
+# HELP temperature_celsius_bathroom Temperature sensor in Celsius (bathroom)
+# TYPE temperature_celsius_bathroom gauge
+temperature_celsius_bathroom{sensor_name="bathroom"} 22.0
+# HELP temperature_celsius_kitchen Temperature sensor in Celsius (kitchen)
+# TYPE temperature_celsius_kitchen gauge
+temperature_celsius_kitchen{sensor_name="kitchen"} 23.5
+# HELP temperature_celsius_children Temperature sensor in Celsius (children)
+# TYPE temperature_celsius_children gauge
+temperature_celsius_children{sensor_name="children"} 22.8
+# HELP humidity_percent_hallway Humidity sensor in percent (hallway)
+# TYPE humidity_percent_hallway gauge
+humidity_percent_hallway{sensor_name="hallway"} 45.0
+# HELP humidity_percent_outside Humidity sensor in percent (outside)
+# TYPE humidity_percent_outside gauge
+humidity_percent_outside{sensor_name="outside"} 62.0
+# HELP humidity_percent_server Humidity sensor in percent (server)
+# TYPE humidity_percent_server gauge
+humidity_percent_server{sensor_name="server"} 41.0
+# HELP humidity_percent_bathroom Humidity sensor in percent (bathroom)
+# TYPE humidity_percent_bathroom gauge
+humidity_percent_bathroom{sensor_name="bathroom"} 53.0
+# HELP humidity_percent_kitchen Humidity sensor in percent (kitchen)
+# TYPE humidity_percent_kitchen gauge
+humidity_percent_kitchen{sensor_name="kitchen"} 44.0
+# HELP humidity_percent_children Humidity sensor in percent (children)
+# TYPE humidity_percent_children gauge
+humidity_percent_children{sensor_name="children"} 44.0
+# HELP data_age_seconds Age of the data in seconds
+# TYPE data_age_seconds gauge
+data_age_seconds 2.0
