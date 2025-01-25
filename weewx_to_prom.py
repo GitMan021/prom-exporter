@@ -16,9 +16,9 @@ logging.basicConfig(
 # Sensor names for mapping
 SENSOR_NAMES = ["hallway", "outside", "server", "bathroom", "kitchen", "children"]
 
-# Define Prometheus Gauges with unique names for each sensor
-temp_gauges = [Gauge(f'temperature_celsius_{name}', f'Temperature sensor in Celsius ({name})', ['sensor_name']) for name in SENSOR_NAMES]
-humidity_gauges = [Gauge(f'humidity_percent_{name}', f'Humidity sensor in percent ({name})', ['sensor_name']) for name in SENSOR_NAMES]
+# Define Prometheus Gauges with 'sensor_name' as a label
+temperature_gauge = Gauge('temperature', 'Temperature sensor in Celsius', ['sensor_name'])
+humidity_gauge = Gauge('humidity', 'Humidity sensor in percent', ['sensor_name'])
 data_age_gauge = Gauge('data_age_seconds', 'Age of the data in seconds')
 
 # Default temp readings are in F, needs to be converted to C
@@ -58,8 +58,8 @@ def process_csv(file_path):
                 if abs(data_age) > 60:
                     logging.warning("Data is older than 1 minute; marking as stale.")
                     for i, sensor_name in enumerate(SENSOR_NAMES): 
-                        temp_gauges[i].labels(sensor_name=sensor_name).set(float('nan'))
-                        humidity_gauges[i].labels(sensor_name=sensor_name).set(float('nan'))
+                        temperature_gauge.labels(sensor_name=sensor_name).set(float('nan'))
+                        humidity_gauge.labels(sensor_name=sensor_name).set(float('nan'))
                     continue
 
                 # Process temperature and humidity values
@@ -73,28 +73,28 @@ def process_csv(file_path):
                         try:
                             temp_f = float(temp_value)
                             temp_c = fahrenheit_to_celsius(temp_f)
-                            temp_gauges[i].labels(sensor_name=sensor_name).set(temp_c)
+                            temperature_gauge.labels(sensor_name=sensor_name).set(temp_c)
                             #logging.debug(f"Set temperature for {sensor_name} to {temp_c}")
                         except ValueError:
                             logging.error(f"Invalid temperature value for {temp_key}: {temp_value}")
-                            temp_gauges[i].labels(sensor_name=sensor_name).set(float('nan'))
+                            temperature_gauge.labels(sensor_name=sensor_name).set(float('nan'))
                     else:
                         logging.warning(f"Missing or 'None' value for {temp_key}")
-                        temp_gauges[i].labels(sensor_name=sensor_name).set(float('nan'))
+                        temperature_gauge.labels(sensor_name=sensor_name).set(float('nan'))
 
                     # Process humidity
                     humidity_value = row.get(humidity_key)
                     if humidity_value and humidity_value.lower() != 'none':
                         try:
                             humidity = int(float(humidity_value))  # Modified to convert humidity to integer
-                            humidity_gauges[i].labels(sensor_name=sensor_name).set(humidity)
+                            humidity_gauge.labels(sensor_name=sensor_name).set(humidity)
                             #logging.debug(f"Set humidity for {sensor_name} to {humidity}")
                         except ValueError:
                             logging.error(f"Invalid humidity value for {humidity_key}: {humidity_value}")
-                            humidity_gauges[i].labels(sensor_name=sensor_name).set(float('nan'))
+                            humidity_gauge.labels(sensor_name=sensor_name).set(float('nan'))
                     else:
                         logging.warning(f"Missing or 'None' value for {humidity_key}")
-                        humidity_gauges[i].labels(sensor_name=sensor_name).set(float('nan'))
+                        humidity_gauge.labels(sensor_name=sensor_name).set(float('nan'))
 
     except FileNotFoundError:
         logging.error(f"File not found: {file_path}")
